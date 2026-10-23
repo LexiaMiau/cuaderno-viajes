@@ -1,0 +1,101 @@
+/* ================================================================
+   Cuaderno de viaje — estilos propios
+   (Tailwind por CDN se usa para utilidades; todo lo crítico va aquí
+   para que la app no dependa de que el CDN cargue a tiempo.)
+   ================================================================ */
+:root{
+  --ink:#1C2321; --paper:#f5f4f0; --card:#FFFFFF;
+  --moss:#3F5D45; --moss-dark:#2C4330; --clay:#B5652D;
+  --line:#E4E0D4; --muted:#767267; --rail:#D8D4C6;
+}
+body{ background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; }
+.font-display{ font-family:'Playfair Display',serif; }
+.leaflet-container{ font-family:'Inter',sans-serif; }
+
+/* Visibilidad: clase propia, nunca depender de `hidden` de Tailwind */
+.is-hidden{ display:none !important; }
+
+/* Campos editables al clic */
+[contenteditable]:focus{ outline:none; background:rgba(63,93,69,0.05); border-radius:4px; }
+[contenteditable][data-placeholder]:empty:before{ content: attr(data-placeholder); color:var(--muted); }
+[contenteditable]:hover{ background:rgba(0,0,0,0.03); border-radius:4px; }
+.editable-hint{ border-bottom:1px dashed var(--line); cursor:pointer; }
+.editable-hint:hover{ border-color:var(--muted); }
+.tag-remove-btn{ opacity:0.6; }
+.tag-remove-btn:hover{ opacity:1; }
+
+/* Botones */
+.btn-primary{ background:var(--moss); color:#fff; }
+.btn-primary:hover{ background:var(--moss-dark); }
+.btn-ghost{ border:1px solid var(--line); color:var(--ink); background:transparent; }
+.btn-ghost:hover{ background:rgba(0,0,0,0.03); }
+.btn-danger:hover{ color:var(--clay); border-color:var(--clay); }
+.icon-btn{ color:var(--muted); }
+.icon-btn:hover{ color:var(--ink); }
+
+/* Campos de formulario */
+.field{ border:1px solid var(--line); background:var(--card); border-radius:8px; padding:.5rem .75rem; font-size:.875rem; width:100%; }
+.field:focus{ outline:none; border-color:var(--moss); }
+
+/* Controles que aparecen al pasar el ratón (siempre visibles en pantallas táctiles) */
+.reveal{ opacity:0; transition:opacity .12s ease; }
+.group:hover .reveal, .group:focus-within .reveal{ opacity:1; }
+@media (hover:none){ .reveal{ opacity:1; } }
+.dragging{ opacity:.4; }
+.multiline{ white-space:pre-wrap; }
+
+/* Bloques y arrastre */
+.block{ position:relative; }
+.drop-before{ box-shadow: inset 0 2px 0 0 var(--moss); }
+.drop-after{ box-shadow: inset 0 -2px 0 0 var(--moss); }
+.day-drop{ box-shadow: inset 0 0 0 2px var(--moss); border-radius:12px; }
+
+/* Timeline */
+.day-rail{ background:var(--rail); width:1px; }
+.day-dot{ background:var(--card); border:2px solid var(--moss); color:var(--moss); font-family:'Playfair Display',serif; }
+
+.stat-value{ font-variant-numeric: tabular-nums; }
+
+.dropzone{ transition: border-color .15s ease, background-color .15s ease; }
+.dropzone.dragover{ border-color: var(--moss); background-color: rgba(63,93,69,0.06); }
+
+.toggle-chevron{ transition: transform .15s ease; }
+.toggle-chevron.open{ transform: rotate(90deg); }
+
+.card-hover{ transition: box-shadow .15s ease, transform .15s ease; }
+.card-hover:hover{ box-shadow: 0 10px 28px rgba(28,35,33,0.10); transform: translateY(-2px); }
+
+/* Pestañas del viaje */
+.tabs{ display:flex; gap:.25rem; border-bottom:1px solid var(--line); overflow-x:auto; }
+.tab{ padding:.6rem .9rem; font-size:.875rem; color:var(--muted); border-bottom:2px solid transparent; margin-bottom:-1px; white-space:nowrap; cursor:pointer; background:transparent; }
+.tab:hover{ color:var(--ink); }
+.tab.active{ color:var(--moss-dark); border-bottom-color:var(--moss); font-weight:500; }
+
+/* Checklist y presupuesto */
+.check{ width:18px; height:18px; border:1.5px solid var(--muted); border-radius:5px; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:var(--card); cursor:pointer; }
+.check.on{ background:var(--moss); border-color:var(--moss); color:#fff; }
+.row-item:hover .row-remove{ opacity:1; }
+.row-remove{ opacity:0; transition:opacity .12s ease; }
+.done-text{ text-decoration:line-through; color:var(--muted); }
+.progress{ height:6px; border-radius:999px; background:var(--line); overflow:hidden; }
+.progress > span{ display:block; height:100%; background:var(--moss); }
+
+/* Capas flotantes (no dependen de Tailwind) */
+#newTripModal, #pointsPanel, .overlay{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; padding:1.5rem; z-index:1000; }
+.overlay{ z-index:1500; }
+#newTripModalBackdrop, .overlay > .confirm-bg{ position:absolute; inset:0; }
+/* La tarjeta del modal siempre por encima del fondo, aunque Tailwind no cargue */
+.modal-card{ position:relative; z-index:1; background:var(--card); border-radius:1rem; width:100%; max-width:28rem; padding:1.5rem; box-shadow:0 20px 50px rgba(28,35,33,.18); }
+.modal-card.sm{ max-width:24rem; }
+#pointsPanel > div{ position:relative; z-index:1; }
+#saveStatus{ position:fixed; bottom:1rem; right:1.25rem; z-index:50; }
+.toast{ position:fixed; left:50%; bottom:1.5rem; transform:translateX(-50%); z-index:2000; }
+
+/* Menús flotantes */
+.menu-pop{ position:fixed; z-index:1200; }
+.menu-pop{ background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:0 10px 28px rgba(28,35,33,0.14); }
+.menu-item{ width:100%; display:flex; align-items:center; gap:.625rem; padding:.5rem .75rem; font-size:.875rem; text-align:left; background:transparent; }
+.menu-item:hover{ background:rgba(0,0,0,0.05); }
+
+::-webkit-scrollbar{ width:8px; height:8px; }
+::-webkit-scrollbar-thumb{ background:var(--line); border-radius:4px; }
